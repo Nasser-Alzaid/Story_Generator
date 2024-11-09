@@ -1,0 +1,62 @@
+@font-face {
+    font-family: 'Harry P';
+    src: url('fonts/HarryP.ttf') format('truetype'); /* Update the path if necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-image: url(img/2620393_orig.jpg); /* Update path as needed */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #000;
+    font-family: "Harry P", sans-serif; /* Apply Harry P font as default */
+}
+
+img {
+    display: block;
+    margin: auto;
+    padding-top: 10%;
+}
+
+h1 {
+    font-variant: small-caps;
+    font-size: 48px;
+    margin-top: -25px;
+    text-align: center;
+    font-family: "Harry P", serif; /* Apply Harry P font to h1 */
+    justify-content: center; 
+    align-items: center;
+}
+
+h1,
+h2 {
+    font-family: "Harry P", serif; /* Apply Harry P font to h1 and h2 */
+    font-size: 72px;
+    justify-content: center; 
+    align-items: center;
+}
+
+h2 {
+    font-size: 36px;
+    color: #000000;
+    margin-left: 10%;
+    justify-content: center; 
+    align-items: center;
+
+}
+
+p {
+    font-family: "Crimson Text", Georgia;
+    font-size: 30px;
+    line-height: 1.5;
+    margin-left: 10%;
+    margin-right: 10%;
+    justify-content: center; 
+    align-items: center;
+}
+
+.chapter {
+    color: #000000;
+}

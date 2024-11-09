@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Story</title>
+    <link rel="stylesheet" href="story.css">
+</head>
+<body>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Harry_Potter_wordmark.svg/2180px-Harry_Potter_wordmark.svg.png" width="70%">
+    <h1>and the sorcerer's stone</h1>
+    <h2><span class="chapter">Chapter 1</span><br> The Boy Who Lived</h2>
+    <p id="storyOutput" style="font-family: 'Harry P', serif;"></p>
+
+    <!-- Audio file for background soundtrack -->
+    <audio id="backgroundAudio" src="audio/hedwigs_theme.mp3" loop></audio>
+
+    <script>
+        // Retrieve the generated story from local storage and display it
+        document.getElementById("storyOutput").innerText = localStorage.getItem('generatedStory') || "No story generated.";
+
+        // Play the background audio when the page loads
+        const audio = document.getElementById('backgroundAudio');
+        audio.play();
+    </script>
+</body>
+</html>

@@ -11,7 +11,7 @@ const client = new BedrockRuntimeClient({
 // Function to Generate Story
 const generateStory = async (prompt) => {
     const params = {
-        modelId: process.env.MODEL_ID || "us.anthropic.claude-3-5-sonnet-20241022-v2:0",
+        modelId: process.env.MODEL_ID ,
         contentType: "application/json",
         accept: "application/json",
         body: JSON.stringify({

@@ -19,7 +19,7 @@ async function generateStory() {
           // Store the generated story in local storage to pass it to harry.html
           localStorage.setItem('generatedStory', data.story);
           // Redirect to harry.html to display the story
-          window.location.href = './story.html';
+          window.location.href = 'story.html';
       } else {
           alert("Sorry, no story was generated. Please try again.");
       }

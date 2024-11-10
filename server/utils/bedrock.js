@@ -1,25 +1,62 @@
-const AWS = require('aws-sdk');
-const { BEDROCK_ENDPOINT, MODEL_ID, AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } = process.env;
+const { BedrockRuntimeClient } = require("@aws-sdk/client-bedrock-runtime");
+const { fromEnv } = require("@aws-sdk/credential-provider-env");
 
-const bedrock = new AWS.Bedrock({
-    endpoint: BEDROCK_ENDPOINT,
-    region: AWS_REGION,
-    accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY,
+// Configure the Bedrock Runtime Client
+const client = new BedrockRuntimeClient({
+    region: process.env.AWS_REGION,
+    credentials: fromEnv(),
+    endpoint: process.env.BEDROCK_ENDPOINT,
 });
 
+// Function to Generate Story
 const generateStory = async (prompt) => {
     const params = {
-        modelId: MODEL_ID,
-        prompt,
+        modelId: process.env.MODEL_ID || "us.anthropic.claude-3-5-sonnet-20241022-v2:0",
+        contentType: "application/json",
+        accept: "application/json",
+        body: JSON.stringify({
+            anthropic_version: "bedrock-2023-05-31",
+            max_tokens: 200,
+            top_k: 250,
+            stop_sequences: [],
+            temperature: 1,
+            top_p: 0.999,
+            messages: [
+                {
+                    role: "user",
+                    content: [
+                        {
+                            type: "text",
+                            text: prompt
+                        }
+                    ]
+                }
+            ]
+        }),
     };
 
     try {
-        const response = await bedrock.invokeModel(params).promise();
-        return response; // Ensure this returns the response text correctly
+        console.log("Sending request to Bedrock with params:", params);
+
+        // Use the `client.send` method with the appropriate command
+        const response = await client.send({
+            operation: "invokeModel",
+            modelId: params.modelId,
+            contentType: params.contentType,
+            accept: params.accept,
+            body: params.body,
+        });
+
+        console.log("Received response from Bedrock:", response);
+
+        const responseData = JSON.parse(await response.body.text());
+        const storyText = responseData.output?.text || "No story generated.";
+
+        console.log("Generated story text:", storyText);
+        return storyText;
     } catch (error) {
-        console.error('Error with Bedrock API:', error);
-        throw new Error('Failed to connect to Amazon Bedrock');
+        console.error("Error with Bedrock API:", error);
+        throw new Error("Failed to generate story");
     }
 };
 
